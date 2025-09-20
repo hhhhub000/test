@@ -22,7 +22,7 @@ function App() {
       height: '100vh', 
       position: 'relative', 
       overflow: 'hidden',
-      background: '#111111'
+      background: '#111112'
     }}>
       <BreakoutGame />
       <GameUI />
