@@ -1,8 +1,8 @@
-name: Deploy Vite (React) to GitHub Pages
+name: Deploy Vite (React) app to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main"]   # デプロイしたいブランチ
   workflow_dispatch:
 
 permissions:
@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # GitHub Pages 用の環境セットアップ（必須）
+      # GitHub Pages 用の環境準備
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
@@ -34,21 +34,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (Vite -> dist/public)
+      - name: Build (Vite -> dist)
         run: npm run build
 
-      # SPA の子ルート直アクセス 404 対策
+      # SPA のルート直アクセス404対策
       - name: SPA fallback (copy index.html to 404.html)
-        run: cp dist/public/index.html dist/public/404.html
-
-      # （任意）独自ドメインを使う場合は CNAME を出力に含める
-      # - name: Add CNAME
-      #   run: echo your.domain.example > dist/public/CNAME
+        run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/
+          path: ./dist
 
   deploy:
     needs: build
