@@ -1,32 +1,28 @@
-import { useEffect } from "react";
-import BreakoutGame from "./components/BreakoutGame";
-import GameUI from "./components/GameUI";
-import { useAudio } from "./lib/stores/useAudio";
-import "@fontsource/inter";
+import { Switch, Route } from "wouter";
+import { queryClient } from "./lib/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import Game from "./components/Game";
+
+function Router() {
+  return (
+    <Switch>
+      <Route path="/" component={Game} />
+      {/* Fallback to game for any route */}
+      <Route component={Game} />
+    </Switch>
+  );
+}
 
 function App() {
-  const { setHitSound, setSuccessSound } = useAudio();
-
-  // Initialize audio on component mount
-  useEffect(() => {
-    const hitAudio = new Audio("/sounds/hit.mp3");
-    const successAudio = new Audio("/sounds/success.mp3");
-    
-    setHitSound(hitAudio);
-    setSuccessSound(successAudio);
-  }, [setHitSound, setSuccessSound]);
-
   return (
-    <div style={{ 
-      width: '100vw', 
-      height: '100vh', 
-      position: 'relative', 
-      overflow: 'hidden',
-      background: '#111112'
-    }}>
-      <BreakoutGame />
-      <GameUI />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Router />
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 }
 
