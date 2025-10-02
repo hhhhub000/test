@@ -43,7 +43,7 @@ jobs:
         run: npm run build
         env:
           # Set base path for GitHub Pages
-          VITE_BASE_PATH: /block_rpg/
+          VITE_BASE_PATH: /test/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
