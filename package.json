@@ -10,7 +10,7 @@
     "build:check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "preview:gh-pages": "VITE_BASE_PATH=/test/ vite build && vite preview --base=/test/"
+    "preview:gh-pages": "VITE_BASE_PATH=/test/ vite build && vite preview --base=/test/",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
